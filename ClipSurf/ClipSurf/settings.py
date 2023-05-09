@@ -29,7 +29,7 @@ SECRET_KEY= 'django-insecure-m$_d9s4!xrn)6zep+b9^gv72i19ho9g(^-=qoc&2*b$*e-_r7t'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['.clip-surf.vercel.app','0.0.0.0']
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 

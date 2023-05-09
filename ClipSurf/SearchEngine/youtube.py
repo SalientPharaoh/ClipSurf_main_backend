@@ -66,15 +66,13 @@ def search_for_entity(prompt):
         result.extend(obj.query_youtube(query, 50))
     else:
         query1 = "AND".join(entity)
-        query2 = "OR".join(entity)
-        result.extend(obj.query_youtube(query1, 25))
-        result.extend(obj.query_youtube(query2, 25))
+        result.extend(obj.query_youtube(query1, 50))
 
     #result = sorted(result, key=lambda x: (x[1]+x[2]), reverse=True) #possible sorting method
     result = [item[0] for item in result]
     result = obj.get_length(",".join(result))
     pattern1 = r'^PT[012]M\d{1,2}S$'
     pattern2 = r'^PT\d{1,2}S$'
-    result =[i for i in result if(re.match(pattern1, i[0]) or re.match(pattern2, i[0]))]
+    result =[i[1] for i in result if(re.match(pattern1, i[0]) or re.match(pattern2, i[0]))]
     return result
 
