@@ -50,3 +50,4 @@ tzdata==2023.3
 uritemplate==4.1.1
 urllib3==2.0.2
 wasabi==1.1.1
+gunicorn
