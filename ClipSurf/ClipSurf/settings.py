@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders', #added manually
 ]
 
 MIDDLEWARE = [
@@ -55,9 +56,12 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware', #added manually
 ]
 
 ROOT_URLCONF = 'ClipSurf.urls'
+
+CORS_ORIGIN_ALLOW_ALL = True #added manually
 
 TEMPLATES = [
     {
