@@ -7,11 +7,24 @@ import json
 
 # Create your views here.
 @csrf_exempt 
-def trending(request):
-    #returns the top trending videos of the youtube global
+def trending(request, country):
     obj = yt.youtubeAPI()
-    data =obj.trending_search()
-    return JsonResponse({'code' : 200, 'data' : data})
+    #loading next page data
+    if request.method == 'POST':
+        recieved_data = json.loads(request.body.decode('utf-8'))
+        pagetoken = recieved_data['pagetoken']
+        result = obj.trending_search(country, pagetoken)
+        data = result[0]
+        pagetoken = result[1]
+        data = obj.ensure_shorts(data)
+        return JsonResponse({'code' : 200, 'data' : data, 'pagetoken' : pagetoken})
+
+    #returns the top trending videos of the youtube global
+    result = obj.trending_search(country)
+    data = result[0]
+    pagetoken = result[1]
+    data = obj.ensure_shorts(data)
+    return JsonResponse({'code' : 200, 'data' : data, 'pagetoken' : pagetoken})
 
 @csrf_exempt    
 def search(request):
@@ -19,8 +32,13 @@ def search(request):
     if request.method == 'POST':
         recieved_data = json.loads(request.body.decode('utf-8'))
         try:
-            data = yt.search_for_entity(recieved_data['query'])
-            return JsonResponse({'code' : 200, 'data' : data})
+            if 'pagetoken' in recieved_data:
+                data = yt.search_for_entity(recieved_data['query'], recieved_data['country'], recieved_data['pagetoken'])
+            else:
+                data = yt.search_for_entity(recieved_data['query'], recieved_data['country'])
+            pagetoken = data[1]
+            result = data[0]
+            return JsonResponse({'code' : 200, 'data' : result, 'pagetoken' : pagetoken})
         except:
             return JsonResponse({'code' : 404})
 
