@@ -141,6 +141,7 @@ DEFAULT_HEADERS = list(default_headers) + [
     "content-type",
     "contenttype",
     "contentType",
+    "body", #added manually
 
 
     "accept",

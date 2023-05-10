@@ -2,7 +2,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from SearchEngine import database_start as db
 from SearchEngine import youtube as yt
-from SearchEngine import youtube_bypass as ytb
+
 import json
 
 # Create your views here.
@@ -35,7 +35,7 @@ def saved(request, email_id):
         else:
             return JsonResponse({'code' : 200 ,'data': result})
     except:
-        return JsonResponse({'code' : 414})
+        return JsonResponse({'code' : 500})
 
 @csrf_exempt 
 def liked(request, email_id, video_id):
