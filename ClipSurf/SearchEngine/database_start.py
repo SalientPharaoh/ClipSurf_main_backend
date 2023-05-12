@@ -24,14 +24,15 @@ class database():
     
     def insert(self, email_id, video_id):
         result = self.collection.find_one({'email_id' : email_id})
-        if result == None:
+        if result is None:
             document = {
                 'email_id' : email_id,
                 'video_id' : video_id
             }
             self.collection.insert_one(document)
         else:
-            result["video_id"] = result["video_id"] + ',' + video_id
+            update = [{"$set": {"video_id": {"$concat": ["$video_id",",", video_id]}}}]
+            self.collection.update_one({'email_id' : email_id}, update)
         return
     
     def find(self, email_id):
