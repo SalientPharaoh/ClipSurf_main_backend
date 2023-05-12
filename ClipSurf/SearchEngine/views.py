@@ -66,3 +66,12 @@ def liked(request, email_id, video_id):
     except:
         return JsonResponse({'code': 404, 'status': 'Failed'})
 
+@csrf_exempt
+def remove(request, email_id, video_id):
+    #removes the video id from the list of the user identified by email_id
+    obj=db.database()
+    try:
+        obj.remove(email_id, video_id)
+        return JsonResponse({'code': 200, 'status': 'Successful'})
+    except:
+        return JsonResponse({'code': 404, 'status': 'Failed'})

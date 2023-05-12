@@ -8,4 +8,5 @@ urlpatterns = [
     path('search/', views.search, name='search'),
     path('saved/<str:email_id>/', views.saved, name='saved'),
     path('liked/<str:email_id>/<str:video_id>', views.liked, name='liked'),
+    path('remove/<str:email_id>/<str:video_id>', views.remove, name='liked'),
 ]

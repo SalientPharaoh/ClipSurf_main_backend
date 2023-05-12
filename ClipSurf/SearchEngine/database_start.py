@@ -41,3 +41,13 @@ class database():
             return None
         else:
             return result["video_id"].split(",")
+        
+    def remove(self, email_id, video_id):
+        result = self.collection.find_one({'email_id' : email_id})
+        if result is not None:
+            video_list = result["video_id"].split(",")
+            video_list.remove(video_id)
+            video_id = ",".join(video_list)
+            update = [{"$set": {"video_id": video_id}}]
+            self.collection.update_one({'email_id' : email_id}, update)
+        return
